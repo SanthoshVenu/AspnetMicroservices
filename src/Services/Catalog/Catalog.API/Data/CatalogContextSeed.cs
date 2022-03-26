@@ -11,13 +11,17 @@ namespace Catalog.API.Data
     {
         public static void SeedData(IMongoCollection<Product> productCollection)
         {
+            // Checking whether any documents present inside Product Collection
             bool existProduct = productCollection.Find(p => true).Any();
             if (!existProduct)
             {
                 productCollection.InsertManyAsync(GetPreconfiguredProducts());
             }
         }
-
+        /// <summary>
+        /// Adding documents into Product Collections
+        /// </summary>
+        /// <returns></returns>
         private static IEnumerable<Product> GetPreconfiguredProducts()
         {
             return new List<Product>()
