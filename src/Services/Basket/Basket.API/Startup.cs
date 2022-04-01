@@ -1,3 +1,4 @@
+using Basket.API.Repositories;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
@@ -31,6 +32,10 @@ namespace Basket.API
                 // Getting ConnectionString data from appsetting.json file 
                 options.Configuration = Configuration.GetValue<string>("CacheSetting:ConnectionString");
             });
+
+            // Since we are using IDistributedCache, BasketRepository will also
+            // converted into Redis Distributed Cache 
+            services.AddScoped<IBasketRepository, BasketRepository>();
 
             services.AddControllers();
             services.AddSwaggerGen(c =>
